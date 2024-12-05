@@ -14,6 +14,7 @@ namespace ContactManagementSystem.DataAccess
         private SqlConnection _connection;
         public DataTable Retrieve(string sqlQuery)
         {
+            ConnectDatabase();
             DataTable dt = new DataTable();
             string conectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             SqlCommand cmd = new SqlCommand(sqlQuery, _connection)
@@ -29,6 +30,7 @@ namespace ContactManagementSystem.DataAccess
 
         public void Update(string sqlQuery)
         {
+            ConnectDatabase();
             SqlCommand cmd = new SqlCommand(sqlQuery, _connection)
             {
                 CommandType = System.Data.CommandType.Text
@@ -45,6 +47,7 @@ namespace ContactManagementSystem.DataAccess
 
         public void Delete(string sqlQuery)
         {
+            ConnectDatabase();
             SqlCommand cmd = new SqlCommand(sqlQuery, _connection)
             {
                 CommandType = System.Data.CommandType.Text
@@ -61,6 +64,7 @@ namespace ContactManagementSystem.DataAccess
 
         public void Insert(string sqlQuery)
         {
+            ConnectDatabase();
             SqlCommand cmd = new SqlCommand(sqlQuery, _connection)
             {
                 CommandType = System.Data.CommandType.Text
