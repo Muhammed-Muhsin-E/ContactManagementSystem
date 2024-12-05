@@ -1,0 +1,44 @@
+﻿@model List<ContactManagementSystem.Models.Contact>
+
+<div class="container">
+    <h1 class="display-4 text-center">Contacts</h1>
+    @Html.ActionLink("Create New Contact", "Create", "Contact", new { }, new { @class = "btn btn-primary pull-right" })
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Sl.No</th>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email Id</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Address</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                int i = 0;
+                foreach (var item in Model)
+                {
+                    i += 1;
+                    <tr>
+                        <th scope="row">@i</th>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.EmailId</td>
+                        <td>@item.PhoneNumber</td>
+                        <td>@item.Address</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Contact", new { @id = item.Id},new {@class= "btn btn-warning btn-sm" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", "Contact", new { @objContact = item }, new { @class = "btn btn-danger btn-sm" })
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
