@@ -54,7 +54,7 @@ namespace ContactManagementSystem.Controllers
             Contact objContact = contactlist.FirstOrDefault(x => x.Id == id);
             if (objContact != null)
             {
-                return View();
+                return View(objContact);
             }
             return RedirectToAction("Contact", "Contact");
         }
@@ -72,12 +72,29 @@ namespace ContactManagementSystem.Controllers
                 throw;
             }
         }
-        [HttpPost]
-        public ActionResult Delete(Contact objContact)
+
+        public ActionResult Delete(int id)
+        {
+            List<Contact> contactlist = _objClsContact.RetriveContacts();
+            Contact objContact = contactlist.FirstOrDefault(x => x.Id == id);
+            if (objContact != null)
+            {
+                return View(objContact);
+            }
+            return RedirectToAction("Contact", "Contact");
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteData(int id)
         {
             try
             {
-                _objClsContact.DeleteContact(objContact);
+                List<Contact> contactlist = _objClsContact.RetriveContacts();
+                Contact objContact = contactlist.FirstOrDefault(x => x.Id == id);
+                if (objContact != null)
+                {
+                    _objClsContact.DeleteContact(objContact);
+                }
                 return RedirectToAction("Contact", "Contact");
             }
             catch
