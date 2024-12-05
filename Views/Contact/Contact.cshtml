@@ -2,6 +2,10 @@
 
 <div class="container">
     <h1 class="display-4 text-center">Contacts</h1>
+    @if (TempData["Message"] != null)
+    {
+        <h3>@TempData["Message"].ToString()</h3>
+    }
     @Html.ActionLink("Create New Contact", "Create", "Contact", new { }, new { @class = "btn btn-primary pull-right" })
     <table class="table">
         <thead>
@@ -31,7 +35,7 @@
                         <td>@item.PhoneNumber</td>
                         <td>@item.Address</td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", "Contact", new { @id = item.Id},new {@class= "btn btn-warning btn-sm" })
+                            @Html.ActionLink("Edit", "Edit", "Contact", new { @id = item.Id }, new { @class = "btn btn-warning btn-sm" })
                         </td>
                         <td>
                             @Html.ActionLink("Delete", "Delete", "Contact", new { @id = item.Id }, new { @class = "btn btn-danger btn-sm" })

@@ -23,9 +23,10 @@ namespace ContactManagementSystem.Controllers
                 List<Contact> contactlist = _objClsContact.RetriveContacts();
                 return View(contactlist);
             }
-            catch 
+            catch (Exception ex)
             {
-                throw;
+                TempData["Message"] = ex.Message;
+                return View();
             }
         }
         
@@ -39,12 +40,18 @@ namespace ContactManagementSystem.Controllers
         {
             try
             {
+                if (objContact.Name == null)
+                {
+                    throw new Exception("Name is Required");
+                }
                 _objClsContact.CreateContact(objContact);
+                TempData["Message"] = "New Contact Created Successfully";
                 return RedirectToAction("Contact", "Contact");
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                TempData["CreateExceptionMessage"] = ex.Message;
+                return RedirectToAction("Create", "Contact", new { @objContact = objContact });
             }
         }
 
@@ -64,12 +71,18 @@ namespace ContactManagementSystem.Controllers
         {
             try
             {
+                if (objContact.Name == null)
+                {
+                    throw new Exception("Name is Required");
+                }
                 _objClsContact.UpdateContact(objContact);
+                TempData["Message"] = "Updated Sucessfully";
                 return RedirectToAction("Contact", "Contact");
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                TempData["EditExceptionMessage"] = ex.Message;
+                return RedirectToAction("Edit", "Contact", new { @objContact = objContact });
             }
         }
 
@@ -94,12 +107,14 @@ namespace ContactManagementSystem.Controllers
                 if (objContact != null)
                 {
                     _objClsContact.DeleteContact(objContact);
+                    TempData["Message"] ="Deleted Successfully";
                 }
-                return RedirectToAction("Contact", "Contact");
+                return RedirectToAction("Contact", "Contact", new { @id = id });
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                TempData["DeleteExceptionMessage"] = ex.Message;
+                return RedirectToAction("Delete", "Contact");
             }
         }
     }

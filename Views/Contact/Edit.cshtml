@@ -2,6 +2,10 @@
 
 <div>
     <h1 class="display-4 text-center">Edit Contact</h1>
+    @if (TempData["EditExceptionMessage"] != null)
+    {
+        <h3>@TempData["EditExceptionMessage"].ToString()</h3>
+    }
     <form method="post">
         <div class="form-group">
             @Html.Label("Name", new { @class = "form-label" })
